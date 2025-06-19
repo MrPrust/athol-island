@@ -2,6 +2,7 @@
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import Map, { Source } from 'react-map-gl/mapbox';
+import Image from 'next/image';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { cn } from '@/lib/utils';
 
@@ -73,10 +74,10 @@ interface IslandHeroProps {
 }
 
 const IslandHero: React.FC<IslandHeroProps> = ({ className = "" }) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const mapRef = useRef<any>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [currentView, setCurrentView] = useState<'nassau' | 'island' | 'form'>('nassau');
-  const [showIslandOverlay, setShowIslandOverlay] = useState(false);
   
   // Scroll handling state
   const [isAnimating, setIsAnimating] = useState(false);
@@ -87,7 +88,6 @@ const IslandHero: React.FC<IslandHeroProps> = ({ className = "" }) => {
 
     setIsAnimating(true);
     setCurrentView('island');
-    setShowIslandOverlay(false);
     
     const islandStep = ANIMATION_STEPS[1]; // Athol Island step
     
@@ -100,9 +100,8 @@ const IslandHero: React.FC<IslandHeroProps> = ({ className = "" }) => {
       essential: true
     });
 
-    // Show island overlay after zoom and reset animation state
+    // Reset animation state after zoom
     setTimeout(() => {
-      setShowIslandOverlay(true);
       setIsAnimating(false);
     }, islandStep.duration + 1000);
   }, [mapLoaded, currentView, isAnimating]);
@@ -112,7 +111,6 @@ const IslandHero: React.FC<IslandHeroProps> = ({ className = "" }) => {
 
     setIsAnimating(true);
     setCurrentView('form');
-    setShowIslandOverlay(false);
     
     const formStep = ANIMATION_STEPS[2]; // Close-up view
     
@@ -136,7 +134,6 @@ const IslandHero: React.FC<IslandHeroProps> = ({ className = "" }) => {
 
     setIsAnimating(true);
     setCurrentView('nassau');
-    setShowIslandOverlay(false);
     
     const nassauStep = ANIMATION_STEPS[0]; // Nassau step
     
@@ -448,18 +445,22 @@ const IslandHero: React.FC<IslandHeroProps> = ({ className = "" }) => {
             <div className="grid grid-cols-3 gap-2 mb-4">
               {/* Logo in first slot */}
               <div className="aspect-square overflow-hidden rounded-lg flex items-center justify-center" style={{ backgroundColor: '#DAA520' }}>
-                <img
+                <Image
                   src="/images/thejunkanooclub.png"
                   alt="The Junkanoo Club"
+                  width={100}
+                  height={100}
                   className="w-3/4 h-auto object-contain"
                 />
               </div>
               {/* Venue photos in remaining slots */}
               {VENUE_PHOTOS.map((photo, index) => (
                 <div key={index} className="aspect-square overflow-hidden rounded-lg">
-                  <img
+                  <Image
                     src={photo.src}
                     alt={photo.alt}
+                    width={200}
+                    height={200}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                   />
                 </div>
@@ -482,7 +483,7 @@ const IslandHero: React.FC<IslandHeroProps> = ({ className = "" }) => {
                   e.currentTarget.style.backgroundColor = '#DAA520';
                 }}
               >
-                Join Us Before It Jam Up
+                Join In Before It Jam Up
               </a>
             </div>
           </div>
