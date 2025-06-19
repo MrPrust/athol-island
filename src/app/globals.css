@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@300;400;600;700&display=swap');
 
 :root {
   --background: #ffffff;
@@ -8,8 +9,29 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: 'Source Sans 3', sans-serif;
   --font-mono: var(--font-geist-mono);
+  
+  /* Brand Color Palette */
+  --color-sun-gold: #DAA520;
+  --color-night-indigo: #2E3A59;
+  --color-cream-sand: #F8F1E5;
+  --color-wave-teal: #3B8072;
+  
+  /* Legacy Island Theme Colors (for backwards compatibility) */
+  --color-ocean-50: #f0f9ff;
+  --color-ocean-500: #0ea5e9;
+  --color-ocean-900: #0c4a6e;
+  
+  --color-sand-50: #fefce8;
+  --color-sand-200: #fef3c7;
+  --color-sand-400: #fbbf24;
+  
+  --color-coral-400: #fb7185;
+  --color-coral-500: #f43f5e;
+  
+  /* Typography */
+  --font-display: 'Playfair Display', serif;
 }
 
 @media (prefers-color-scheme: dark) {
